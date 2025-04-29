@@ -14,7 +14,6 @@ import * as Yup from "yup";
 import { signinAction } from "../../Redux/Auth/Action";
 import { getUserProfileAction } from "../../Redux/User/Action";
 
-
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required("Required"),
   password: Yup.string()
@@ -26,21 +25,22 @@ const Signin = () => {
   const initialValues = { email: "", password: "" };
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user,signin } = useSelector((store) => store);
+  const { user, signin } = useSelector((store) => store);
   const toast = useToast();
 
   const token = localStorage.getItem("token");
-  console.log("token in signin page ",token)
+  console.log("token in signin page ", token);
   console.log("reqUser -: ", user);
+
   useEffect(() => {
     if (token) dispatch(getUserProfileAction(token || signin));
-  }, [signin,token]);
+  }, [signin, token]);
 
   useEffect(() => {
     if (user?.reqUser?.username && token) {
       navigate(`/${user.reqUser?.username}`);
       toast({
-        title: "signin successfull",
+        title: "Signin successful",
         status: "success",
         duration: 8000,
         isClosable: true,
@@ -55,92 +55,108 @@ const Signin = () => {
   };
 
   return (
-    <div className=" ">
+    <div>
       <div className="border border-slate-300">
-        <Box p={8} display="flex" flexDirection="column" alignItems="center">
-        <img
-          className="border border-red-800 mb-5"
-          src="https://www.pekarskiglasnik.com/images/slike/cook%20hub%20kuhinja/CookHub-logo.JPG"
-          alt=""
-        />
-        
-        <Formik
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
+        <Box
+          p={8}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          boxShadow="0 8px 24px rgba(0, 0, 0, 0.15)" // Transparent shadow
+          borderRadius="md"
+          backgroundColor="white"
         >
-          {(formikProps) => (
-            <Form className="w-full">
-              <Field name="email">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.email && form.touched.email}
-                    mb={4}
-                  >
-                    <Input
-                      className="w-full"
-                      {...field}
-                      id="email"
-                      placeholder="Mobile Number Or Email"
-                    />
-                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
+          <img
+            className="border border-red-800 mb-5"
+            src="https://www.pekarskiglasnik.com/images/slike/cook%20hub%20kuhinja/CookHub-logo.JPG"
+            alt="logo"
+          />
 
-              <Field name="password">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.password && form.touched.password}
-                    mb={4}
-                  >
-                    <Input
-                      {...field}
-                      type="password"
-                      id="password"
-                      placeholder="Password"
-                    />
-                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <p className="text-center">
-                
-              </p>
-              <p className="mt-5 text-center">
-                By signing up, you agree to our Terms , Privacy Policy and
-                Cookies Policy .
-              </p>
-              <Button
-                className="w-full"
-                mt={4}
-                colorScheme="blue"
-                type="submit"
-                isLoading={formikProps.isSubmitting}
-              >
-                Sign In
-              </Button>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            {(formikProps) => (
+              <Form className="w-full">
+                <Field name="email">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={form.errors.email && form.touched.email}
+                      mb={4}
+                    >
+                      <Input
+                        className="w-full"
+                        {...field}
+                        id="email"
+                        placeholder="Please enter your Email"
+                      />
+                      <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
 
-              <Button
-                as="a"
-                href="http://localhost:5454/oauth2/authorization/google"
-                colorScheme="red"
-                mt={4}
-                width="100%"
-              >
-                Sign in with Google
-              </Button>
+                <Field name="password">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={form.errors.password && form.touched.password}
+                      mb={4}
+                    >
+                      <Input
+                        {...field}
+                        type="password"
+                        id="password"
+                        placeholder="Please Enter your Password"
+                      />
+                      <FormErrorMessage>
+                        {form.errors.password}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
 
+                <p className="mt-5 text-center text-sm">
+                  By signing up, you agree to our{" "}
+                  <span className="text-blue-600">Terms</span>,{" "}
+                  <span className="text-blue-600">Privacy Policy</span> and{" "}
+                  <span className="text-blue-600">Cookies Policy</span>.
+                </p>
 
-            </Form>
-          )}
-        </Formik>
-      </Box>
+                <Button
+                  className="w-full"
+                  mt={4}
+                  colorScheme="blue"
+                  type="submit"
+                  isLoading={formikProps.isSubmitting}
+                >
+                  Sign In
+                </Button>
 
+                <Button
+                  as="a"
+                  href="http://localhost:5454/oauth2/authorization/google"
+                  colorScheme="red"
+                  mt={4}
+                  width="100%"
+                >
+                  Sign in with Google
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Box>
       </div>
-      
+
       <div className="w-full border border-slate-300 mt-5">
-<p className="text-center py-2">If You Don't Have Already Account <span onClick={()=>navigate("/signup")} className="ml-2 text-blue-700 cursor-pointer">Sign Up</span></p>
+        <p className="text-center py-2">
+          If You Don't Have Already Account
+          <span
+            onClick={() => navigate("/signup")}
+            className="ml-2 text-blue-700 cursor-pointer"
+          >
+            Sign Up
+          </span>
+        </p>
       </div>
     </div>
   );

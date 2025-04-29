@@ -3,10 +3,10 @@ export const uploadMediaToCloudinary = async (media) => {
       const data = new FormData();
       data.append("file", media);
       data.append("upload_preset", "cloud_video_preset");
-      data.append("cloud_name", "dusdvdo7q");
+      data.append("cloud_name", "dvawjogg8");
   
       const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dusdvdo7q/video/upload",
+        "https://api.cloudinary.com/v1_1/dvawjogg8/video/upload",
         {
           method: "post",
           body: data,
