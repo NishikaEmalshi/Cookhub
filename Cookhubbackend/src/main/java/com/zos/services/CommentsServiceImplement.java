@@ -55,6 +55,7 @@ public class CommentsServiceImplement implements CommentService {
         userDto.setName(user.getName());
         userDto.setUserImage(user.getImage());
 
+        // Set user, timestamp, and post for the comment
         comment.setUserDto(userDto);
         comment.setCreatedAt(LocalDateTime.now());
         comment.setPost(post);
