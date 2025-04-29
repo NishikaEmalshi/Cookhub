@@ -66,6 +66,8 @@ public class CommentsServiceImplement implements CommentService {
 
         postRepo.save(post);
 
+        // If commenter is not the post owner, create a notification
+
         if (!post.getUser().getId().equals(userId)) {
             Notification notification = new Notification();
             notification.setMessage(user.getUsername() + " commented on your post");
