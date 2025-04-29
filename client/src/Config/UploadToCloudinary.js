@@ -12,9 +12,9 @@ export const uploadToCloudinary = async (file) => {
       data.append("upload_preset", "cloud_upload_img");
     }
     
-    data.append("cloud_name", "dusdvdo7q");
-    
-    const res = await fetch("https://api.cloudinary.com/v1_1/dusdvdo7q/upload", {
+    data.append("cloud_name", "dvawjogg8");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/dvawjogg8/upload", {
       method: "POST",
       body: data,
     });
