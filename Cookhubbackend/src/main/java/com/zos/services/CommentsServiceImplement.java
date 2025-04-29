@@ -90,6 +90,7 @@ public class CommentsServiceImplement implements CommentService {
         throw new CommentException("comment not exist with id : " + commentId);
     }
 
+    // Like a comment
     @Override
     public Comments likeComment(Integer commentId, Integer userId) throws UserException, CommentException {
         // TODO Auto-generated method stub
