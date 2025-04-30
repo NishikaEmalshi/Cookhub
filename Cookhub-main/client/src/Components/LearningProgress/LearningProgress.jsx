@@ -48,7 +48,7 @@ const LearningProgress = () => {
       message.success("Update edited successfully!");
     } else {
       dispatch(createProgressUpdate(token, values));
-      message.success("New update added!");
+      message.success("New update added success !");
     }
     form.resetFields();
     setIsModalOpen(false);
