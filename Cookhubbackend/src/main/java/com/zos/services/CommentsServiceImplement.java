@@ -34,13 +34,13 @@ public class CommentsServiceImplement implements CommentService {
     @Autowired
     private PostRepository postRepo;
 
-
     @Autowired
     private NotificationService notificationService;
 
-
+    // Create a new comment on a post
     @Override
-    public Comments createComment(Comments comment, Integer postId, Integer userId) throws PostException, UserException {
+    public Comments createComment(Comments comment, Integer postId, Integer userId)
+            throws PostException, UserException {
 
         User user = userService.findUserById(userId);
 
@@ -55,6 +55,7 @@ public class CommentsServiceImplement implements CommentService {
         userDto.setName(user.getName());
         userDto.setUserImage(user.getImage());
 
+        // Set user, timestamp, and post for the comment
         comment.setUserDto(userDto);
         comment.setCreatedAt(LocalDateTime.now());
         comment.setPost(post);
@@ -64,6 +65,8 @@ public class CommentsServiceImplement implements CommentService {
         post.getComments().add(newComment);
 
         postRepo.save(post);
+
+        // If commenter is not the post owner, create a notification
 
         if (!post.getUser().getId().equals(userId)) {
             Notification notification = new Notification();
@@ -87,13 +90,13 @@ public class CommentsServiceImplement implements CommentService {
         throw new CommentException("comment not exist with id : " + commentId);
     }
 
+    // Like a comment
     @Override
     public Comments likeComment(Integer commentId, Integer userId) throws UserException, CommentException {
         // TODO Auto-generated method stub
 
         User user = userService.findUserById(userId);
         Comments comment = findCommentById(commentId);
-
 
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
@@ -108,7 +111,6 @@ public class CommentsServiceImplement implements CommentService {
 
     }
 
-
     @Override
     public Comments unlikeComment(Integer commentId, Integer userId) throws UserException, CommentException {
         User user = userService.findUserById(userId);
@@ -119,7 +121,6 @@ public class CommentsServiceImplement implements CommentService {
         return repo.save(comment);
 
     }
-
 
     @Override
     public String deleteCommentById(Integer commentId) throws CommentException {
@@ -132,7 +133,6 @@ public class CommentsServiceImplement implements CommentService {
         return "Comment Deleted Successfully";
     }
 
-
     @Override
     public String editComment(Comments comment, Integer commentId) throws CommentException {
         Comments isComment = findCommentById(commentId);
@@ -144,12 +144,10 @@ public class CommentsServiceImplement implements CommentService {
         return "Comment Updated Successfully";
     }
 
-
     @Override
     public List<Comments> findCommentByPostId(Integer postId) throws PostException {
         List<Comments> comments = repo.findCommentsByPostId(postId);
         return comments;
     }
-
 
 }
