@@ -50,7 +50,7 @@ public class LearningProgressUpdateController {
         User user = userService.findUserProfile(token);
         return updateService.updateProgressUpdate(id, update, user.getId());
     }
-
+    //test commit
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageResponse> delete(
             @PathVariable Long id,
@@ -61,3 +61,4 @@ public class LearningProgressUpdateController {
         return ResponseEntity.ok(new MessageResponse("Deleted successfully"));
     }
 }
+
