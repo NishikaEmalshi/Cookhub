@@ -169,7 +169,7 @@ const CreatePostModal = ({ onOpen, isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Location Input */}
+            {/*chgnage full Location Input */}
             <input
               className="w-full p-4 text-lg border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
               type="text"
