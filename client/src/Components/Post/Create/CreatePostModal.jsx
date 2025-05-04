@@ -130,7 +130,7 @@ const CreatePostModal = ({ onOpen, isOpen, onClose }) => {
     <Modal size={"4xl"} isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay backdropFilter="blur(8px)" bg="blackAlpha.600" />
       <ModalContent className="overflow-hidden shadow-2xl rounded-2xl">
-        {/* Header */}
+        {/* Header chanage color and format */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-400">
           <div className="flex items-center justify-between px-6 py-4">
             <h2 className="text-xl font-bold text-white">Create New Post</h2>
