@@ -151,7 +151,7 @@ const CreatePostModal = ({ onOpen, isOpen, onClose }) => {
 
         <ModalBody p={6}>
           <div className="flex flex-col space-y-6">
-            {/* Caption Input */}
+            {/* full screen Caption Input change */}
             <div>
               <textarea
                 className="w-full p-4 min-h-[150px] text-lg border rounded-lg resize-none 
