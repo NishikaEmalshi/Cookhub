@@ -163,7 +163,7 @@ const EditPostModal = ({ isOpen, onClose, post }) => {
               </div>
             </div>
 
-            {/* Location Input */}
+            {/*modify edit Location Input */}
             <input
               className="w-full p-4 text-lg border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
               type="text"
