@@ -1,7 +1,6 @@
 import { useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { createNotificationAction } from "../../../Redux/Notification/Action"; 
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import {
   BsBookmark,
   BsBookmarkFill,
@@ -74,15 +73,7 @@ const PostCard = ({
     dispatch(createComment(data));
     setCommentContent("");
     
-    // Create notification for comment
-    if (post.user.id !== user.reqUser.id) { // Only create notification if not own post
-      const notification = {
-        message: `${user.reqUser.username} commented: ${commentContent}`,
-        type: "COMMENT",
-        postId: post.id
-      };
-      dispatch(createNotificationAction(notification, token));
-    }
+
   };
 
   const handleOnEnterPress = (e) => {
@@ -97,14 +88,6 @@ const PostCard = ({
     setNumberOfLike(numberOfLikes + 1);
     
   
-    if (post.user.id !== user.reqUser.id) { 
-      const notification = {
-        message: `${user.reqUser.username} liked your post`,
-        type: "LIKE",
-        postId: post.id
-      };
-      dispatch(createNotificationAction(notification, token));
-    }
   };
 
   const handleUnLikePost = () => {
@@ -220,30 +203,37 @@ const PostCard = ({
             </div>
           </div>
           <div>
-            <div className="dropdown">
-              <BsThreeDots onClick={handleClick} className="dots" />
-              {isOwnPost && (
-                <div className="dropdown-content">
-                  {showDropdown && (
-                    <div className="p-2 w-[10rem] shadow-xl bg-white">
-                      <p
-                        onClick={handleOpenEditPostModal}
-                        className="hover:bg-slate-300 py-2 px-4 cursor-pointer font-semibold"
-                      >
-                        Edit
-                      </p>
-                      <hr />
-                      <p
-                        onClick={() => handleDeletePost(post.id)}
-                        className="hover:bg-slate-300 px-4 py-2 cursor-pointer font-semibold"
-                      >
-                        Delete
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+          <div className="dropdown">
+          <button
+  onClick={handleClick}
+  className="dots flex items-center gap-1 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-500 transition duration-300 ease-in-out"
+>
+  More
+</button>
+
+
+  
+  {isOwnPost && showDropdown && (
+    <div className="dropdown-content">
+      <div className="p-2 w-[10rem] shadow-xl bg-white">
+        <p
+          onClick={handleOpenEditPostModal}
+          className="hover:bg-slate-300 py-2 px-4 cursor-pointer font-semibold"
+        >
+          Edit
+        </p>
+        <hr />
+        <p
+          onClick={() => handleDeletePost(post.id)}
+          className="hover:bg-slate-300 px-4 py-2 cursor-pointer font-semibold"
+        >
+          Delete
+        </p>
+      </div>
+    </div>
+  )}
+</div>
+
           </div>
         </div>
 
@@ -290,24 +280,31 @@ const PostCard = ({
         </div>
 
         <div className="flex justify-between items-center w-full px-5 py-4">
-          <div className="flex items-center space-x-2">
-            {isPostLiked ? (
-              <AiFillHeart
-                onClick={handleUnLikePost}
-                className="text-2xl hover:opacity-50 cursor-pointer text-red-600"
-              />
-            ) : (
-              <AiOutlineHeart
-                onClick={handleLikePost}
-                className="text-2xl hover:opacity-50 cursor-pointer"
-              />
-            )}
-            <FaRegComment
-              onClick={handleOpenCommentModal}
-              className="text-xl hover:opacity-50 cursor-pointer"
-            />
-            <RiSendPlaneLine className="text-xl hover:opacity-50 cursor-pointer" />
-          </div>
+  <div className="flex items-center space-x-4">
+    {isPostLiked ? (
+      <button
+        onClick={handleUnLikePost}
+        className="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded"
+      >
+        Unlike
+      </button>
+    ) : (
+      <button
+        onClick={handleLikePost}
+        className="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded"
+      >
+        Like
+      </button>
+    )}
+
+    <button
+      onClick={handleOpenCommentModal}
+      className="px-3 py-1 text-white bg-gray-500 hover:bg-gray-600 rounded"
+    >
+      Comment
+    </button>
+  </div>
+
           <div className="cursor-pointer">
             {isSaved ? (
               <BsBookmarkFill

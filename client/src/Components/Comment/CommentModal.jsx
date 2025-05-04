@@ -8,7 +8,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import {
   BsBookmark,
   BsBookmarkFill,
@@ -130,58 +130,44 @@ const CommentModal = ({
                     ))}
                 </div>
 
-                <div className=" absolute bottom-0 w-[90%]">
-                  <div className="flex justify-between items-center w-full mt-5">
-                    <div className="flex items-center space-x-2 ">
-                      {isPostLiked ? (
-                        <AiFillHeart
-                          onClick={handleUnLikePost}
-                          className="text-2xl hover:opacity-50 cursor-pointer text-red-600"
-                        />
-                      ) : (
-                        <AiOutlineHeart
-                          onClick={handleLikePost}
-                          className="text-2xl hover:opacity-50 cursor-pointer "
-                        />
-                      )}
-
-                      <FaRegComment className="text-xl hover:opacity-50 cursor-pointer" />
-                      <RiSendPlaneLine className="text-xl hover:opacity-50 cursor-pointer" />
-                    </div>
-                    <div className="cursor-pointer">
-                      {isSaved ? (
-                        <BsBookmarkFill
-                          onClick={() => handleUnSavePost(post.singlePost?.id)}
-                          className="text-xl"
-                        />
-                      ) : (
-                        <BsBookmark
-                          onClick={() => handleSavePost(post.singlePost?.id)}
-                          className="text-xl hover:opacity-50 cursor-pointer"
-                        />
-                      )}
-                    </div>
-                  </div>
-                  {post.singlePost?.likedByUsers?.length > 0 && (
-                    <p className="text-sm font-semibold py-2">
-                      {post.singlePost?.likedByUsers?.length} likes{" "}
-                    </p>
-                  )}
-                  <p className="opacity-70 pb-5">
-                    {timeDifference(post?.singlePost?.createdAt)}
-                  </p>
-                  <div className=" flex items-center ">
-                    <BsEmojiSmile className="mr-3 text-xl" />
-                    <input
-                      className="commentInput w-[70%]"
-                      placeholder="Add Comment..."
-                      type="text"
-                      onKeyPress={handleOnEnterPress}
-                      onChange={handleCommnetInputChange}
-                      value={commentContent}
-                    />
-                  </div>
-                </div>
+                <div className="absolute bottom-0 w-[90%]">
+  <div className="flex justify-between items-center w-full mt-5">
+    
+    
+    <div className="cursor-pointer">
+      {isSaved ? (
+        <BsBookmarkFill
+          onClick={() => handleUnSavePost(post.singlePost?.id)}
+          className="text-xl"
+        />
+      ) : (
+        <BsBookmark
+          onClick={() => handleSavePost(post.singlePost?.id)}
+          className="text-xl hover:opacity-50 cursor-pointer"
+        />
+      )}
+    </div>
+  </div>
+  {post.singlePost?.likedByUsers?.length > 0 && (
+    <p className="text-sm font-semibold py-2">
+      {post.singlePost?.likedByUsers?.length} likes
+    </p>
+  )}
+  <p className="opacity-70 pb-5">
+    {timeDifference(post?.singlePost?.createdAt)}
+  </p>
+  <div className="flex items-center">
+    <BsEmojiSmile className="mr-3 text-xl" />
+    <input
+      className="commentInput w-[70%]"
+      placeholder="Add Comment..."
+      type="text"
+      onKeyPress={handleOnEnterPress}
+      onChange={handleCommnetInputChange}
+      value={commentContent}
+    />
+  </div>
+</div>
               </div>
             </div>
           </ModalBody>

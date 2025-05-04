@@ -122,93 +122,89 @@ const EditPostModal = ({ isOpen, onClose, post }) => {
 
   return (
     <Modal size={"4xl"} isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <div className="flex justify-between py-1 px-10 items-center">
-          <p className="font-semibold">Edit Post</p>
-          <Button
-            onClick={handleSubmit}
-            colorScheme="blue"
-            size={"sm"}
-            isLoading={loading}
-            loadingText="Updating..."
-          >
-            Update
-          </Button>
+      <ModalOverlay backdropFilter="blur(8px)" bg="blackAlpha.600" />
+      <ModalContent className="overflow-hidden shadow-2xl rounded-2xl">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-400">
+          <div className="flex items-center justify-between px-6 py-4">
+            <h2 className="text-xl font-bold text-white">Edit Post</h2>
+            <Button
+              onClick={handleSubmit}
+              bgGradient="linear(to-r, red.400, pink.500)"
+              _hover={{ bgGradient: "linear(to-r, red.500, pink.600)" }}
+              color="white"
+              size="md"
+              isLoading={loading}
+              loadingText="Updating..."
+              px={6}
+              rounded="full"
+            >
+              Update
+            </Button>
+          </div>
         </div>
 
-        <hr className="hrLine" />
-
-        <ModalBody>
-          <div className="modalBodyBox flex h-[70vh] justify-between">
-            <div className="w-[50%] flex flex-col justify-center items-center relative">
-              <div 
-                className="w-full h-full flex items-center justify-center relative group cursor-pointer"
-                onClick={handleImageClick}
-              >
-                {postData.mediaUrls?.length > 0 ? (
-                  <>
-                    <img
-                      className="max-h-[70vh] object-contain"
-                      src={postData.mediaUrls[0]}
-                      alt="post"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                      <p className="text-white text-center">Click to change image</p>
-                    </div>
-                  </>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    <FaPhotoVideo className="text-3xl mb-2" />
-                    <p>Click here to upload photo</p>
-                  </div>
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  ref={fileInputRef}
-                  className="hidden"
-                />
+        <ModalBody p={6}>
+          <div className="flex flex-col space-y-6">
+            {/* Caption Input */}
+            <div>
+              <textarea
+                className="w-full p-4 min-h-[150px] text-lg border rounded-lg resize-none 
+                  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                  bg-gray-50"
+                placeholder="Write a caption..."
+                name="caption"
+                value={postData.caption}
+                onChange={handleInputChange}
+              />
+              <div className="flex justify-end mt-2">
+                <span className="text-sm text-gray-500">
+                  {postData.caption?.length}/2,200
+                </span>
               </div>
             </div>
-            <div className="w-[1px] border h-full"></div>
-            <div className="w-[50%]">
-              <div className="flex items-center px-2">
+
+            {/* Location Input */}
+            <input
+              className="w-full p-4 text-lg border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+              type="text"
+              placeholder="Add location"
+              name="location"
+              value={postData.location}
+              onChange={handleInputChange}
+            />
+
+            {/* Image Section */}
+            <div 
+              className="relative min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg
+                hover:border-blue-500 transition-colors cursor-pointer bg-gray-50"
+              onClick={handleImageClick}
+            >
+              {postData.mediaUrls?.length > 0 ? (
                 <img
-                  className="w-7 h-7 rounded-full"
-                  src={user?.reqUser?.image || "https://cdn.pixabay.com/photo/2023/02/28/03/42/ibex-7819817_640.jpg"}
-                  alt=""
+                  className="object-contain w-full h-full p-4 max-h-[400px]"
+                  src={postData.mediaUrls[0]}
+                  alt="post"
                 />
-                <p className="font-semibold ml-4">{user?.reqUser?.username}</p>
-              </div>
-              <div className="px-2">
-                <textarea
-                  className="captionInput"
-                  placeholder="Write a caption..."
-                  name="caption"
-                  rows="8"
-                  value={postData.caption}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="flex justify-between px-2">
-                <GrEmoji />
-                <p className="opacity-70">{postData.caption?.length}/2,200</p>
-              </div>
-              <hr />
-              <div className="p-2 flex justify-between items-center">
-                <input
-                  className="locationInput"
-                  type="text"
-                  placeholder="Add location"
-                  name="location"
-                  value={postData.location}
-                  onChange={handleInputChange}
-                />
-                <GoLocation />
-              </div>
-              <hr />
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
+                  <div className="p-4 mb-4 rounded-full bg-blue-50">
+                    <FaPhotoVideo className="text-3xl text-blue-500" />
+                  </div>
+                  <p className="text-lg font-medium text-gray-600">
+                    Click to upload photo
+                  </p>
+                  <p className="mt-2 text-sm text-gray-400">
+                    JPG, PNG files are allowed
+                  </p>
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                ref={fileInputRef}
+                className="hidden"
+              />
             </div>
           </div>
         </ModalBody>

@@ -28,41 +28,24 @@ export const mainu = [
     icon: <AiOutlineInfoCircle className="text-2xl mr-5" />,
     activeIcon: <AiOutlineInfoCircle className="text-2xl mr-5" />,
   },
-  {
-    title: "Search",
-    icon: <AiOutlineSearch className="text-2xl mr-5" />,
-    activeIcon: <AiOutlineSearch className="text-2xl mr-5" />,
-  },
+ 
   {
     title: "Learning Progress",
     icon: <AiOutlineCompass className="text-2xl mr-5" />,
     activeIcon: <AiFillCompass className="text-2xl mr-5" />,
   },
-  {
-    title: "Reels",
-    icon: <RiVideoLine className="text-2xl mr-5" />,
-    activeIcon: <RiVideoFill className="text-2xl mr-5" />,
-  },
-  {
-    title: "Create Reels",
-    icon: <RiVideoLine className="text-2xl mr-5" />,
-    activeIcon: <RiVideoFill className="text-2xl mr-5" />,
-  },
+
   {
     title: "Learning Plan",
     icon: <AiOutlineMessage className="text-2xl mr-5" />,
     activeIcon: <AiFillMessage className="text-2xl mr-5" />,
   },
-  {
-    title: "Notifications",
-    icon: <AiOutlineHeart className="text-2xl mr-5" />,
-    activeIcon: <AiFillHeart className="text-2xl mr-5" />,
-  },
-  {
-    title: "Create Story",
-    icon: <AiOutlineCamera className="text-2xl mr-5" />,
-    activeIcon: <AiFillCamera className="text-2xl mr-5" />,
-  },
+  // {
+  //   title: "Notifications",
+  //   icon: <AiOutlineHeart className="text-2xl mr-5" />,
+  //   activeIcon: <AiFillHeart className="text-2xl mr-5" />,
+  // },
+ 
   {
     title: "Create Post",
     icon: <AiOutlinePlusCircle className="text-2xl mr-5" />,
@@ -70,3 +53,4 @@ export const mainu = [
   },
   { title: "Profile", icon: <CgProfile className="text-2xl mr-5" />, activeIcon: <CgProfile className="text-2xl mr-5" /> },
 ];
+

@@ -4,42 +4,36 @@ import {
   getProgressUpdates,
   createProgressUpdate,
   updateProgressUpdate,
-  deleteProgressUpdate
+  deleteProgressUpdate,
 } from "../../Redux/LearningProgress/Action";
 import {
   Button,
   Modal,
   Form,
   Input,
-  List,
+  Card,
+  Row,
+  Col,
+  Select,
   message,
-  Select
 } from "antd";
-import {
-  PlusOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  FileTextOutlined,
-  ToolOutlined,
-  RocketOutlined
-} from "@ant-design/icons";
-import "./LearningProgress.css"; // 👈 Make sure this CSS file is created
+import "./LearningProgress.css";
 
 const { Option } = Select;
 
 const LearningProgress = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
-
   const { updates } = useSelector((store) => store.learningProgress);
 
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   useEffect(() => {
     dispatch(getProgressUpdates(token));
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const handleSubmit = (values) => {
     if (editing) {
@@ -52,73 +46,59 @@ const LearningProgress = () => {
     form.resetFields();
     setIsModalOpen(false);
     setEditing(null);
+    setSelectedTemplate(null);
   };
 
   const handleTemplateChange = (value) => {
-    if (value === "tutorial") {
-      form.setFieldsValue({
-        title: "📚 Completed a Tutorial",
-        content: "Finished learning [topic] tutorial."
-      });
-    } else if (value === "skill") {
-      form.setFieldsValue({
-        title: "🛠️ Learned a New Skill",
-        content: "I learned how to [skill]."
-      });
-    } else if (value === "project") {
-      form.setFieldsValue({
-        title: "🚀 Built a Project",
-        content: "I developed a project using [technology]."
-      });
-    }
+    setSelectedTemplate(value);
+    message.info("Template selected. Please fill in the details yourself.");
   };
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">📈 Learning Progress Updates</h2>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setIsModalOpen(true)}
-        >
+    <div className="learning-progress-container">
+      <div className="header">
+        <h2>📈 Learning Progress Updates</h2>
+        <Button type="primary" onClick={() => setIsModalOpen(true)}>
           Add Update
         </Button>
       </div>
 
-      <List
-        dataSource={updates}
-        renderItem={(item) => (
-          <List.Item
-            key={item.id}
-            actions={[
-              <Button
-                icon={<EditOutlined />}
-                size="small"
-                onClick={() => {
-                  setEditing(item);
-                  form.setFieldsValue(item);
-                  setIsModalOpen(true);
-                }}
-              />,
-              <Button
-                icon={<DeleteOutlined />}
-                size="small"
-                danger
-                onClick={() => {
-                  dispatch(deleteProgressUpdate(token, item.id));
-                  message.success("Update deleted!");
-                }}
-              />
-            ]}
-          >
-            <List.Item.Meta
+      <Row gutter={[16, 16]}>
+        {updates.map((item) => (
+          <Col xs={24} sm={12} md={8} lg={6} key={item.id}>
+            <Card
+              className="progress-card"
               title={item.title}
-              description={item.content}
-            />
-          </List.Item>
-        )}
-      />
+              extra={
+                <div className="card-actions">
+                  <Button
+                    type="link"
+                    onClick={() => {
+                      setEditing(item);
+                      form.setFieldsValue(item);
+                      setIsModalOpen(true);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    type="link"
+                    danger
+                    onClick={() => {
+                      dispatch(deleteProgressUpdate(token, item.id));
+                      message.success("Update deleted!");
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              }
+            >
+              <p>{item.content}</p>
+            </Card>
+          </Col>
+        ))}
+      </Row>
 
       <Modal
         open={isModalOpen}
@@ -126,27 +106,21 @@ const LearningProgress = () => {
           setIsModalOpen(false);
           setEditing(null);
           form.resetFields();
+          setSelectedTemplate(null);
         }}
         onOk={() => form.submit()}
         title={editing ? "Edit Update ✏️" : "Add Progress Update 🚀"}
       >
         <Form form={form} onFinish={handleSubmit} layout="vertical">
           {!editing && (
-            <Form.Item label="Choose a Template">
+            <Form.Item label="Please Select the progreess Type">
               <Select
                 placeholder="Select a template"
                 onChange={handleTemplateChange}
-                optionLabelProp="label"
               >
-                <Option value="tutorial" label="📚 Completed Tutorial">
-                  <FileTextOutlined /> 📚 Completed Tutorial
-                </Option>
-                <Option value="skill" label="🛠️ New Skill Learned">
-                  <ToolOutlined /> 🛠️ New Skill Learned
-                </Option>
-                <Option value="project" label="🚀 Built a Project">
-                  <RocketOutlined /> 🚀 Built a Project
-                </Option>
+                <Option value="tutorial">Completed Tutorial</Option>
+                <Option value="skill">New Skill Learned</Option>
+                <Option value="project">Enhancing the knowledge</Option>
               </Select>
             </Form.Item>
           )}
@@ -156,7 +130,17 @@ const LearningProgress = () => {
             label="Title"
             rules={[{ required: true, message: "Please enter a title" }]}
           >
-            <Input placeholder="e.g., Completed React Bootcamp" />
+            <Input
+              placeholder={
+                selectedTemplate === "tutorial"
+                  ? "e.g., Completed Cooking Tutorial"
+                  : selectedTemplate === "skill"
+                  ? "e.g., Area improves Skills"
+                  : selectedTemplate === "project"
+                  ? "e.g., Enhances Area of Knowledge"
+                  : "Enter a title"
+              }
+            />
           </Form.Item>
 
           <Form.Item
@@ -166,7 +150,15 @@ const LearningProgress = () => {
           >
             <Input.TextArea
               rows={4}
-              placeholder="What did you learn or complete?"
+              placeholder={
+                selectedTemplate === "tutorial"
+                  ? "Describe what you learned in the tutorial..."
+                  : selectedTemplate === "skill"
+                  ? "Describe the skill you learned..."
+                  : selectedTemplate === "project"
+                  ? "Describe the Enhanced knowledge area..."
+                  : "Describe your learning update..."
+              }
             />
           </Form.Item>
         </Form>

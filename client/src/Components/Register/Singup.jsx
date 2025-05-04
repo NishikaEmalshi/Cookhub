@@ -36,7 +36,6 @@ const Signup = () => {
 
   const handleSubmit = (values, actions) => {
     dispatch(signupAction(values));
-    console.log("signup", values);
     actions.setSubmitting(false);
   };
 
@@ -49,8 +48,17 @@ const Signup = () => {
         duration: 8000,
         isClosable: true,
       });
+    } else if (auth.signup?.error) {
+      toast({
+        title: "Signup failed",
+        description: auth.signup.message,
+        status: "error",
+        duration: 8000,
+        isClosable: true,
+        position: "top",
+      });
     }
-  }, [auth.signup]);
+  }, [auth.signup, navigate, toast]);
 
   return (
     <div className="min-h-screen flex justify-center items-center">

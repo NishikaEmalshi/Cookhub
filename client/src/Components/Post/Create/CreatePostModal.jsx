@@ -127,151 +127,135 @@ const CreatePostModal = ({ onOpen, isOpen, onClose }) => {
   };
 
   return (
-    <div>
-      <Modal
-        size={"4xl"}
-        finalFocusRef={React.useRef(null)}
-        isOpen={isOpen}
-        onClose={handleClose}
-      >
-        <ModalOverlay />
-        <ModalContent fontSize={"sm"}>
-          <div className="flex justify-between py-1 px-10 items-center">
-            <p>Create New Post</p>
+    <Modal size={"4xl"} isOpen={isOpen} onClose={handleClose}>
+      <ModalOverlay backdropFilter="blur(8px)" bg="blackAlpha.600" />
+      <ModalContent className="overflow-hidden shadow-2xl rounded-2xl">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-blue-600 to-blue-400">
+          <div className="flex items-center justify-between px-6 py-4">
+            <h2 className="text-xl font-bold text-white">Create New Post</h2>
             <Button
               onClick={handleSubmit}
-              className="inline-flex"
-              colorScheme="blue"
-              size={"sm"}
-              variant="ghost"
+              bgGradient="linear(to-r, red.400, pink.500)"
+              _hover={{ bgGradient: "linear(to-r, red.500, pink.600)" }}
+              color="white"
+              size="md"
               isDisabled={postData.mediaUrls.length === 0}
+              px={6}
+              rounded="full"
             >
               Share
             </Button>
           </div>
+        </div>
 
-          <hr className="hrLine" />
+        <ModalBody p={6}>
+          <div className="flex flex-col space-y-6">
+            {/* Caption Input */}
+            <div>
+              <textarea
+                className="w-full p-4 min-h-[150px] text-lg border rounded-lg resize-none 
+                  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                  bg-gray-50"
+                placeholder="Write a caption..."
+                name="caption"
+                value={postData.caption}
+                onChange={handleInputChange}
+              />
+              <div className="flex justify-end mt-2">
+                <span className="text-sm text-gray-500">
+                  {postData.caption?.length}/2,200
+                </span>
+              </div>
+            </div>
 
-          <ModalBody>
-            <div className="modalBodyBox flex h-[70vh] justify-between">
-              <div className="w-[50%] flex flex-col justify-center items-center relative">
-                {uploadStatus === "" && (
-                  <div
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    className={`drag-drop h-full ${isDragOver ? "border-blue-500" : ""}`}
-                  >
-                    <div className="flex justify-center flex-col items-center">
-                      <FaPhotoVideo className={`text-3xl ${isDragOver ? "text-blue-800" : ""}`} />
-                      <p>Drag photos or videos here</p>
-                    </div>
+            {/* Location Input */}
+            <input
+              className="w-full p-4 text-lg border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
+              type="text"
+              placeholder="Add location"
+              name="location"
+              value={postData.location}
+              onChange={handleInputChange}
+            />
 
-                    <label htmlFor="file-upload" className="custom-file-upload">
-                      Select from computer
-                    </label>
+            {/* Media Upload Section */}
+            <div 
+              className={`relative min-h-[300px] border-2 border-dashed rounded-lg
+                transition-colors cursor-pointer bg-gray-50
+                ${isDragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}
+              `}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+            >
+              {postData.mediaUrls.length > 0 ? (
+                <div className="relative h-full">
+                  {isVideo(postData.mediaUrls[currentMediaIndex]) ? (
+                    <video
+                      src={postData.mediaUrls[currentMediaIndex]}
+                      className="object-contain w-full h-full p-4 max-h-[400px]"
+                      controls
+                    />
+                  ) : (
+                    <img
+                      src={postData.mediaUrls[currentMediaIndex]}
+                      className="object-contain w-full h-full p-4 max-h-[400px]"
+                      alt="Upload preview"
+                    />
+                  )}
+                  
+                  {/* Navigation arrows for multiple media */}
+                  {postData.mediaUrls.length > 1 && (
+                    <>
+                      <IconButton
+                        icon={<ChevronLeftIcon />}
+                        onClick={handlePrevMedia}
+                        position="absolute"
+                        left="2"
+                        top="50%"
+                        transform="translateY(-50%)"
+                        rounded="full"
+                        colorScheme="blue"
+                      />
+                      <IconButton
+                        icon={<ChevronRightIcon />}
+                        onClick={handleNextMedia}
+                        position="absolute"
+                        right="2"
+                        top="50%"
+                        transform="translateY(-50%)"
+                        rounded="full"
+                        colorScheme="blue"
+                      />
+                    </>
+                  )}
+                </div>
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
+                  <div className="p-4 mb-4 rounded-full bg-blue-50">
+                    <FaPhotoVideo className="text-3xl text-blue-500" />
+                  </div>
+                  <p className="text-lg font-medium text-gray-600">
+                    Drag photos or videos here
+                  </p>
+                  <label className="px-6 py-2 mt-4 text-white transition-colors bg-blue-500 rounded-full cursor-pointer hover:bg-blue-600">
+                    Select from computer
                     <input
                       type="file"
-                      id="file-upload"
+                      className="hidden"
                       accept="image/*, video/*"
                       multiple
                       onChange={handleOnChange}
                     />
-                  </div>
-                )}
-
-                {uploadStatus === "uploading" && <SpinnerCard />}
-
-                {uploadStatus === "uploaded" && (
-                  <div className="w-full h-full relative">
-                    {postData.mediaUrls.map((url, index) => (
-                      <div
-                        key={index}
-                        className={`absolute inset-0 flex items-center justify-center ${
-                          index === currentMediaIndex ? "block" : "hidden"
-                        }`}
-                      >
-                        {isVideo(url) ? (
-                          <video
-                            src={url}
-                            controls
-                            className="max-h-full max-w-full object-contain"
-                          />
-                        ) : (
-                          <img
-                            src={url}
-                            alt={`Media ${index + 1}`}
-                            className="max-h-full max-w-full object-contain"
-                          />
-                        )}
-                      </div>
-                    ))}
-
-                    {postData.mediaUrls.length > 1 && (
-                      <>
-                        {}
-                        <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
-                          {postData.mediaUrls.map((_, index) => (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentMediaIndex(index)}
-                              className={`w-2 h-2 rounded-full ${
-                                index === currentMediaIndex ? "bg-blue-500" : "bg-gray-300"
-                              }`}
-                              aria-label={`Go to media ${index + 1}`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
-              
-              <div className="w-[1px] border h-full"></div>
-              
-              <div className="w-[50%]">
-                <div className="flex items-center px-2">
-                  <img
-                    className="w-7 h-7 rounded-full"
-                    src={user?.reqUser?.image || "https://cdn.pixabay.com/photo/2023/02/28/03/42/ibex-7819817_640.jpg"}
-                    alt=""
-                  />
-                  <p className="font-semibold ml-4">{user?.reqUser?.username}</p>
+                  </label>
                 </div>
-                <div className="px-2">
-                  <textarea
-                    className="captionInput"
-                    placeholder="Write a description..."
-                    name="caption"
-                    rows="8"
-                    value={postData.caption}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="flex justify-between px-2">
-                  <GrEmoji />
-                  <p className="opacity-70">{postData.caption?.length}/2,200</p>
-                </div>
-                <hr />
-                <div className="p-2 flex justify-between items-center">
-                  <input
-                    className="locationInput"
-                    type="text"
-                    placeholder="Add Location"
-                    name="location"
-                    value={postData.location}
-                    onChange={handleInputChange}
-                  />
-                  <GoLocation />
-                </div>
-                <hr />
-              </div>
+              )}
             </div>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </div>
+          </div>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   );
 };
 

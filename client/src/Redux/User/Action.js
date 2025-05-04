@@ -10,24 +10,32 @@ import {
 
 export const getUserProfileAction = (token) => async (dispatch) => {
   try {
-      const res = await fetch(`${BASE_URL}/api/users/req`, {
-    method: "GET",
+    if (!token) {
+      return; // Return early if no token
+    }
 
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  });
+    const res = await fetch(`${BASE_URL}/api/users/req`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
 
-  const reqUser = await res.json();
+    if (res.status === 401) {
+      localStorage.removeItem("token");
+      return;
+    }
 
-  // console.log("--- req user --- ",reqUser)
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
 
-  dispatch({ type: GET_USER_PROFILE, payload: reqUser });
+    const reqUser = await res.json();
+    dispatch({ type: GET_USER_PROFILE, payload: reqUser });
   } catch (error) {
-    console.log("catch error - ",error)
+    console.log("catch error - ", error);
   }
-
 };
 
 export const findByUsernameAction = (data) => async (dispatch) => {
