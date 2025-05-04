@@ -173,7 +173,7 @@ const EditPostModal = ({ isOpen, onClose, post }) => {
               onChange={handleInputChange}
             />
 
-            {/* Image Section */}
+            {/*modify Image Section */}
             <div 
               className="relative min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg
                 hover:border-blue-500 transition-colors cursor-pointer bg-gray-50"
