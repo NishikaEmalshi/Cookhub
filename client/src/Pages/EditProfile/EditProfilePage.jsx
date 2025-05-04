@@ -43,7 +43,7 @@ const EditProfilePage = () => {
             <EditProfileForm />
           </div>
 
-          {/* Footer */}
+          {/* add Footer */} 
           <div className="px-6 py-4 border-t border-gray-100 bg-gray-50">
             <p className="text-sm text-center text-gray-500">
               Your information is securely saved
