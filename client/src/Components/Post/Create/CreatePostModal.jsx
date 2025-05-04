@@ -179,7 +179,7 @@ const CreatePostModal = ({ onOpen, isOpen, onClose }) => {
               onChange={handleInputChange}
             />
 
-            {/* Media Upload Section */}
+            {/* change Media Upload Section */}
             <div 
               className={`relative min-h-[300px] border-2 border-dashed rounded-lg
                 transition-colors cursor-pointer bg-gray-50
