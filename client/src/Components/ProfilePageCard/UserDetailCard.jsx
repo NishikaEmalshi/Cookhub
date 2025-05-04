@@ -59,18 +59,18 @@ setIsFollow(isFollowing)
           <div className=" flex space-x-10 items-center">
             <p className="text-base">{user?.username}</p>
             <button className="text-xs py-1 px-5 bg-slate-100 hover:bg-slate-300 rounded-md font-semibold">
-              {isRequser ? (
-                <span onClick={goToAccountEdit}>Edit profile</span>
-              ) : isFollow ? (
-                <span onClick={handleUnFollowUser}>Unfollow </span>
-              ) : (
-                <span onClick={handleFollowUser}>Follow</span>
-              )}
+            {isRequser && (
+  <button
+    className="text-xs py-1 px-5 bg-slate-100 hover:bg-slate-300 rounded-md font-semibold"
+    onClick={goToAccountEdit}
+  >
+    Edit profile
+  </button>
+)}
+
             </button>
-            <button className="text-xs py-1 px-5 bg-slate-100 hover:bg-slate-300 rounded-md font-semibold">
-              {isRequser ? "Add tools" : "Message"}
-            </button>
-            <TbCircleDashed className="text-xl" />
+   
+      
           </div>
 
           <div className="flex space-x-10">
@@ -81,18 +81,7 @@ setIsFollow(isFollowing)
               <span>posts</span>
             </div>
 
-            <div>
-              <span className="font-semibold mr-2">
-                {user?.follower?.length}
-              </span>
-              <span>followers</span>
-            </div>
-            <div>
-              <span className="font-semibold mr-2">
-                {user?.following?.length}
-              </span>
-              <span>following</span>
-            </div>
+         
           </div>
           <div>
             <p className="font-semibold">{user?.name}</p>

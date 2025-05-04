@@ -22,13 +22,9 @@ const ProfilePostsPart = ({user}) => {
       icon: <AiOutlineTable className="text-xs" />,
       activeTab: "",
     },
-    { tab: "Reels", icon: <RiVideoLine className="text-xs" />, activeTab: "" },
+  
     { tab: "Saved", icon: <BiBookmark className="text-xs" />, activeTab: "" },
-    {
-      tab: "Tagged",
-      icon: <AiOutlineUser className="text-xs" />,
-      activeTab: "",
-    },
+ 
   ];
 
   useEffect(() => {

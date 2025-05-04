@@ -9,7 +9,7 @@ const Auth = () => {
   return (
     <div>
      
-        <div class="flex items-center justify-center h-[100vh]">
+        <div className="flex items-center justify-center h-[100vh]">
         
 
           <div className="form md:w-[35vw] lg:w-[22vw]">

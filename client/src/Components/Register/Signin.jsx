@@ -89,7 +89,7 @@ const Signin = () => {
                         className="w-full"
                         {...field}
                         id="email"
-                        placeholder="Please enter your Email"
+                        placeholder="Please Enter your Email"
                       />
                       <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>

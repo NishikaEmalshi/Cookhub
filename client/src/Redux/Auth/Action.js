@@ -32,10 +32,26 @@ export const signupAction = (data) => async (dispatch) => {
       },
       body: JSON.stringify(data),
     });
-    const user = await res.json();
-    console.log("Signup :- ",user)
-    dispatch({ type: SIGN_UP, payload: user });
+
+    const responseData = await res.json();
+
+    if (!res.ok) {
+      // Check if it's a duplicate email error
+      if (responseData.message && responseData.message.includes("email")) {
+        throw new Error("This email is already registered. Please use a different email.");
+      }
+      throw new Error(responseData.message || "Signup failed. Please try again.");
+    }
+
+    dispatch({ type: SIGN_UP, payload: responseData });
   } catch (error) {
     console.log("catch error ", error);
+    dispatch({ 
+      type: SIGN_UP, 
+      payload: { 
+        error: true, 
+        message: error.message || "An error occurred during signup. Please try again." 
+      } 
+    });
   }
 };
