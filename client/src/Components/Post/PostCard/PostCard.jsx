@@ -173,137 +173,111 @@ const PostCard = ({
   };
 
   return (
-    <div>
-      <div className="flex flex-col items-center w-full border rounded-md">
-        <div className="flex justify-between items-center w-full py-4 px-5">
-          <div className="flex items-center">
+    <div className="mb-8">
+      <div className="flex flex-col overflow-hidden bg-white shadow-lg rounded-xl">
+        {/* Header Section */}
+        <div className="flex items-center justify-between px-6 py-4 border-b">
+          <div className="flex items-center space-x-3">
             <img
-              className="w-12 h-12 rounded-full"
-              src={
-                post.user.userImage ||
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              }
+              className="object-cover w-10 h-10 rounded-full ring-2 ring-gray-100"
+              src={post.user.userImage || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
               alt=""
             />
-
-            <div className="pl-2">
-              <p className="font-semibold text-sm flex items-center">
-                <span
-                  onClick={() => handleNavigate(username)}
-                  className="cursor-pointer"
-                >
-                  {post?.user?.username}
-                </span>
-                <span className="opacity-50 flex items-center">
-                  <BsDot />
-                  {timeDifference(post?.createdAt)}
-                </span>
+            <div>
+              <p className="font-semibold text-gray-800 cursor-pointer hover:underline"
+                 onClick={() => handleNavigate(username)}>
+                {post?.user?.username}
               </p>
-              <p className="font-thin text-sm">{location}</p>
+              <div className="flex items-center text-sm text-gray-500">
+                <span>{location}</span>
+                {location && <BsDot />}
+                <span>{timeDifference(post?.createdAt)}</span>
+              </div>
             </div>
           </div>
-          <div>
+
+          {/* More Options Button */}
           <div className="dropdown">
-          <button
-  onClick={handleClick}
-  className="dots flex items-center gap-1 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-500 transition duration-300 ease-in-out"
->
-  More
-</button>
+            <button
+              onClick={handleClick}
+              className="px-3 py-1.5 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 dots"
+            >
+              <BsThreeDots size={20} />
+            </button>
 
-
-  
-  {isOwnPost && showDropdown && (
-    <div className="dropdown-content">
-      <div className="p-2 w-[10rem] shadow-xl bg-white">
-        <p
-          onClick={handleOpenEditPostModal}
-          className="hover:bg-slate-300 py-2 px-4 cursor-pointer font-semibold"
-        >
-          Edit
-        </p>
-        <hr />
-        <p
-          onClick={() => handleDeletePost(post.id)}
-          className="hover:bg-slate-300 px-4 py-2 cursor-pointer font-semibold"
-        >
-          Delete
-        </p>
-      </div>
-    </div>
-  )}
-</div>
-
+            {isOwnPost && showDropdown && (
+              <div className="absolute right-0 z-50 w-48 mt-2 bg-white border rounded-lg shadow-xl dropdown-content">
+                <button
+                  onClick={handleOpenEditPostModal}
+                  className="w-full px-4 py-2 text-left text-gray-700 transition-colors duration-200 hover:bg-gray-50"
+                >
+                  Edit
+                </button>
+                <hr />
+                <button
+                  onClick={() => handleDeletePost(post.id)}
+                  className="w-full px-4 py-2 text-left text-red-600 transition-colors duration-200 hover:bg-red-50"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Media Slider Section */}
-        <div className="w-full relative">
+        {/* Media Section */}
+        <div className="relative">
           {post.mediaUrls?.map((url, index) => (
             <div
               key={index}
               className={`${index === currentMediaIndex ? "block" : "hidden"}`}
             >
               {isVideo(url) ? (
-                <video
-                  src={url}
-                  controls
-                  className="w-full"
-                />
+                <video src={url} controls className="w-full h-[500px] object-cover" />
               ) : (
-                <img
-                  src={url}
-                  alt={`Post media ${index + 1}`}
-                  className="w-full"
-                />
+                <img src={url} alt={`Post media ${index + 1}`} className="w-full h-[500px] object-cover" />
               )}
             </div>
           ))}
 
+          {/* Media Navigation */}
           {post.mediaUrls?.length > 1 && (
-            <>
-              {}
-              <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
-                {post.mediaUrls?.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentMediaIndex(index)}
-                    className={`w-2 h-2 rounded-full ${
-                      index === currentMediaIndex ? "bg-blue-500" : "bg-gray-300"
-                    }`}
-                    aria-label={`Go to media ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </>
+            <div className="absolute left-0 right-0 flex justify-center space-x-2 bottom-4">
+              {post.mediaUrls?.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentMediaIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-colors duration-200 
+                    ${index === currentMediaIndex ? "bg-white" : "bg-white/50"}`}
+                  aria-label={`Go to media ${index + 1}`}
+                />
+              ))}
+            </div>
           )}
         </div>
 
-        <div className="flex justify-between items-center w-full px-5 py-4">
-  <div className="flex items-center space-x-4">
-    {isPostLiked ? (
-      <button
-        onClick={handleUnLikePost}
-        className="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded"
-      >
-        Unlike
-      </button>
-    ) : (
-      <button
-        onClick={handleLikePost}
-        className="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded"
-      >
-        Like
-      </button>
-    )}
+        {/* Actions Section */}
+        <div className="flex items-center justify-between px-6 py-4 border-t">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={isPostLiked ? handleUnLikePost : handleLikePost}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-colors duration-200
+                ${isPostLiked 
+                  ? "bg-red-50 text-red-500 hover:bg-red-100" 
+                  : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                }`}
+            >
+              {isPostLiked ? <AiFillLike size={20} /> : <AiOutlineLike size={20} />}
+            </button>
 
-    <button
-      onClick={handleOpenCommentModal}
-      className="px-3 py-1 text-white bg-gray-500 hover:bg-gray-600 rounded"
-    >
-      Comment
-    </button>
-  </div>
+            <button
+              onClick={handleOpenCommentModal}
+              className="flex items-center px-4 py-2 space-x-2 text-gray-700 transition-colors duration-200 rounded-full bg-gray-50 hover:bg-gray-100"
+            >
+              <FaRegComment size={20} />
+              <span>Comment</span>
+            </button>
+          </div>
 
           <div className="cursor-pointer">
             {isSaved ? (
@@ -314,12 +288,12 @@ const PostCard = ({
             ) : (
               <BsBookmark
                 onClick={handleSavePost}
-                className="text-xl hover:opacity-50 cursor-pointer"
+                className="text-xl cursor-pointer hover:opacity-50"
               />
             )}
           </div>
         </div>
-        <div className="w-full py-2 px-5">
+        <div className="w-full px-5 py-2">
           {numberOfLikes > 0 && (
             <p className="text-sm">{numberOfLikes} likes</p>
           )}
@@ -329,14 +303,14 @@ const PostCard = ({
           {post?.comments?.length > 0 && (
             <p
               onClick={handleOpenCommentModal}
-              className="opacity-50 text-sm py-2 -z-0 cursor-pointer"
+              className="py-2 text-sm opacity-50 cursor-pointer -z-0"
             >
               View all {post?.comments?.length} comments
             </p>
           )}
         </div>
-        <div className="border border-t w-full">
-          <div className="w-full flex items-center px-5">
+        <div className="w-full border border-t">
+          <div className="flex items-center w-full px-5">
             <BsEmojiSmile />
             <input
               onKeyPress={handleOnEnterPress}
