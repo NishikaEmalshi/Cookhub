@@ -33,7 +33,9 @@ public class CommentsServiceImplement implements CommentService {
     @Autowired
     private PostRepository postRepo;
 
-   
+
+    @Autowired
+    private NotificationService notificationService;
 
     // Create a new comment on a post
     @Override
@@ -63,6 +65,8 @@ public class CommentsServiceImplement implements CommentService {
         post.getComments().add(newComment);
 
         postRepo.save(post);
+
+        // If commenter is not the post owner, create a notification
 
         // If commenter is not the post owner, create a notification
 
