@@ -17,10 +17,10 @@ const EditProfilePage = () => {
       <div className="max-w-4xl px-4 py-12 mx-auto">
         {/* Header Section */}
         <div className="mb-10 text-center">
-          <h1 className="mb-2 text-3xl font-bold text-gray-800">
+          <h1 className="mb-2 text-3xl font-bold text-white">
             Edit Your Profile
           </h1>
-          <p className="text-gray-600">
+          <p className="text-white">
             Customize your profile to make it uniquely yours
           </p>
         </div>
