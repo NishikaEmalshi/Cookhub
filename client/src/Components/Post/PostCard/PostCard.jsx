@@ -225,7 +225,7 @@ const PostCard = ({
           </div>
         </div>
 
-        {/* Post Description - Moved to top */}
+        {/* Post Description */}
         <div className="w-full px-6 py-4 border-b">
           <div className="flex items-center space-x-2">
             <span className="font-semibold">{post?.user?.username}</span>
@@ -302,13 +302,12 @@ const PostCard = ({
           </div>
         </div>
 
-        {/* Likes Count */}
-        <div className="w-full px-6 py-2">
+        {/* Likes and Comments Count */}
+        <div className="w-full px-6 py-2 border-t">
           {numberOfLikes > 0 && (
             <p className="text-sm font-semibold">{numberOfLikes} likes</p>
           )}
           
-          {/* Comments Count */}
           {post?.comments?.length > 0 && (
             <p
               onClick={handleOpenCommentModal}
@@ -317,21 +316,6 @@ const PostCard = ({
               View all {post?.comments?.length} comments
             </p>
           )}
-        </div>
-
-        {/* Comment Input Section */}
-        <div className="w-full border-t">
-          <div className="flex items-center w-full px-5">
-            <BsEmojiSmile />
-            <input
-              onKeyPress={handleOnEnterPress}
-              onChange={handleCommentInputChange}
-              value={commentContent}
-              className="commentInput"
-              type="text"
-              placeholder="Add a comment..."
-            />
-          </div>
         </div>
       </div>
 
