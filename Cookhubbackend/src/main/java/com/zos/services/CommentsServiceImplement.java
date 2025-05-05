@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import com.zos.model.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +32,7 @@ public class CommentsServiceImplement implements CommentService {
 
     @Autowired
     private PostRepository postRepo;
+
 
     @Autowired
     private NotificationService notificationService;
@@ -68,14 +68,9 @@ public class CommentsServiceImplement implements CommentService {
 
         // If commenter is not the post owner, create a notification
 
-        if (!post.getUser().getId().equals(userId)) {
-            Notification notification = new Notification();
-            notification.setMessage(user.getUsername() + " commented on your post");
-            notification.setType("COMMENT");
-            notification.setPostId(postId);
-            notification.setCommentId(comment.getId());
-            notificationService.createNotification(notification, post.getUser().getId());
-        }
+        // If commenter is not the post owner, create a notification
+
+  
 
         return newComment;
     }

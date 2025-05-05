@@ -12,7 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { signupAction } from "../../Redux/Auth/Action";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import spiceupImage from '../../assets/logo.png';
+import leftImage from '../../assets/bg3.jpg';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required("Required"),
@@ -61,23 +62,44 @@ const Signup = () => {
   }, [auth.signup, navigate, toast]);
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      <div
-  className="rounded-lg shadow-lg max-w-md w-full p-6"
-  style={{
-    backgroundColor: "rgba(255, 255, 255, 0.85)",
-    backdropFilter: "blur(5px)", 
-  }}
->
-        <Box display="flex" flexDirection="column" alignItems="center">
+    <Box display="flex" height="80vh" width="60vw" overflow="hidden">
+      
+      {/* Left Image Section */}
+      <Box width="40%" display={{ base: "none", md: "block" }}>
+        <img
+          src={leftImage}
+          alt="Left Side"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </Box>
+
+      {/* Right Form Section */}
+      <Box
+        width={{ base: "100%", md: "50%" }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="#f9f9f9"
+        padding={4}
+      >
+        <Box
+          width="100%"
+          maxW="400px"
+          p={8}
+          boxShadow="lg"
+          backgroundColor="white"
+          borderRadius="md"
+        >
           <img
-            className="mb-4"
-            src="https://www.pekarskiglasnik.com/images/slike/cook%20hub%20kuhinja/CookHub-logo.JPG"
-            alt="CookHub Logo"
+            className="mb-5 mx-auto"
+            src={spiceupImage}
+            alt="SpiceUp Logo"
+            style={{ width: "120px" }}
           />
           <p className="font-bold opacity-50 text-lg mb-6 text-center">
-            Experience the delightful experience of cooking with CookHub.
+            Experience the delightful world of cooking with SpiceUp.
           </p>
+
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
@@ -100,6 +122,7 @@ const Signup = () => {
                     </FormControl>
                   )}
                 </Field>
+
                 <Field name="username">
                   {({ field, form }) => (
                     <FormControl
@@ -117,6 +140,7 @@ const Signup = () => {
                     </FormControl>
                   )}
                 </Field>
+
                 <Field name="name">
                   {({ field, form }) => (
                     <FormControl
@@ -132,6 +156,7 @@ const Signup = () => {
                     </FormControl>
                   )}
                 </Field>
+
                 <Field name="password">
                   {({ field, form }) => (
                     <FormControl
@@ -142,7 +167,7 @@ const Signup = () => {
                         {...field}
                         type="password"
                         id="password"
-                        placeholder="Please enter Your Password"
+                        placeholder="Please Enter Your Password"
                       />
                       <FormErrorMessage>
                         {form.errors.password}
@@ -150,38 +175,41 @@ const Signup = () => {
                     </FormControl>
                   )}
                 </Field>
+
                 <p className="mt-4 text-center text-sm">
                   By signing up, you agree to our{" "}
                   <span className="underline">Terms</span>,{" "}
                   <span className="underline">Privacy Policy</span> and{" "}
                   <span className="underline">Cookies Policy</span>.
                 </p>
+
                 <Button
-                  className="w-full"
                   mt={4}
                   colorScheme="blue"
                   type="submit"
                   isLoading={formikProps.isSubmitting}
+                  width="100%"
                 >
                   Sign Up
                 </Button>
               </Form>
             )}
           </Formik>
+
+          <Box mt={6} textAlign="center">
+            <p>
+              If You Already Have an Account
+              <span
+                onClick={() => navigate("/login")}
+                className="ml-2 text-blue-700 cursor-pointer"
+              >
+                Sign In
+              </span>
+            </p>
+          </Box>
         </Box>
-        <div className="w-full mt-5">
-          <p className="text-center py-2 text-sm">
-            If You Have Already Account{" "}
-            <span
-              onClick={() => navigate("/login")}
-              className="ml-2 text-blue-700 cursor-pointer"
-            >
-              Sign In
-            </span>
-          </p>
-        </div>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,7 +1,6 @@
 package com.zos.exception;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +31,6 @@ public class GlobleException {
     }
 
 
-    @ExceptionHandler(NotificationException.class)
-    public ResponseEntity<ErrorDetails> NotificationExceptionHandler(NotificationException ue, WebRequest req) {
-        ErrorDetails err = new ErrorDetails(ue.getMessage(), req.getDescription(false), LocalDateTime.now());
-        return new ResponseEntity<ErrorDetails>(err, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(CommentException.class)
     public ResponseEntity<ErrorDetails> CommentsExceptionHandler(CommentException ue, WebRequest req) {
@@ -47,23 +41,8 @@ public class GlobleException {
 
     }
 
-    @ExceptionHandler(StoryException.class)
-    public ResponseEntity<ErrorDetails> StoryExceptionHandler(StoryException ue, WebRequest req) {
-
-        ErrorDetails err = new ErrorDetails(ue.getMessage(), req.getDescription(false), LocalDateTime.now());
-
-        return new ResponseEntity<ErrorDetails>(err, HttpStatus.BAD_REQUEST);
-
-    }
-
-    @ExceptionHandler(ReeelException.class)
-    public ResponseEntity<ErrorDetails> ReelExceptionHandler(ReeelException ue, WebRequest req) {
-
-        ErrorDetails err = new ErrorDetails(ue.getMessage(), req.getDescription(false), LocalDateTime.now());
-
-        return new ResponseEntity<ErrorDetails>(err, HttpStatus.BAD_REQUEST);
-
-    }
+  
+   
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetails> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException me) {
