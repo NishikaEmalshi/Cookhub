@@ -39,7 +39,7 @@ const PostCard = ({
   post,
   createdAt,
 }) => {
-  const [commentContent, setCommentContent] = useState();
+  const [commentContent, setCommentContent] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -72,8 +72,6 @@ const PostCard = ({
     };
     dispatch(createComment(data));
     setCommentContent("");
-    
-
   };
 
   const handleOnEnterPress = (e) => {
@@ -86,8 +84,6 @@ const PostCard = ({
     dispatch(likePostAction(data));
     setIsPostLiked(true);
     setNumberOfLike(numberOfLikes + 1);
-    
-  
   };
 
   const handleUnLikePost = () => {
@@ -111,13 +107,13 @@ const PostCard = ({
   };
 
   const handleNextMedia = () => {
-    setCurrentMediaIndex(prev => 
+    setCurrentMediaIndex((prev) =>
       prev === post.mediaUrls.length - 1 ? 0 : prev + 1
     );
   };
 
   const handlePrevMedia = () => {
-    setCurrentMediaIndex(prev => 
+    setCurrentMediaIndex((prev) =>
       prev === 0 ? post.mediaUrls.length - 1 : prev - 1
     );
   };
@@ -132,21 +128,20 @@ const PostCard = ({
     setNumberOfLike(post?.likedByUsers?.length);
   }, [user.reqUser, post]);
 
-  const handleClick = () => {
+  const handleClick = (event) => {
+    event.stopPropagation(); // Prevent event from bubbling up
     setShowDropdown(!showDropdown);
   };
 
-  const handleWindowClick = (event) => {
-    if (!event.target.matches(".dots")) {
-      setShowDropdown(false);
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener("click", handleWindowClick);
-    return () => {
-      window.removeEventListener("click", handleWindowClick);
+    const closeDropdown = (event) => {
+      if (!event.target.closest(".dropdown")) {
+        setShowDropdown(false);
+      }
     };
+
+    document.addEventListener("click", closeDropdown);
+    return () => document.removeEventListener("click", closeDropdown);
   }, []);
 
   const handleDeletePost = (postId) => {
@@ -197,26 +192,34 @@ const PostCard = ({
           </div>
 
           {/* More Options Button */}
-          <div className="dropdown">
+          <div className="relative dropdown">
             <button
               onClick={handleClick}
-              className="px-3 py-1.5 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 dots"
+              className="p-2 text-gray-700 transition-colors duration-200 rounded-full hover:bg-gray-100"
             >
               <BsThreeDots size={20} />
             </button>
 
             {isOwnPost && showDropdown && (
-              <div className="absolute right-0 z-50 w-48 mt-2 bg-white border rounded-lg shadow-xl dropdown-content">
+              <div className="absolute right-0 z-50 w-48 mt-2 bg-white border rounded-lg shadow-xl top-full">
                 <button
-                  onClick={handleOpenEditPostModal}
-                  className="w-full px-4 py-2 text-left text-gray-700 transition-colors duration-200 hover:bg-gray-50"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenEditPostModal();
+                    setShowDropdown(false);
+                  }}
+                  className="w-full px-4 py-2 text-left text-gray-700 transition-colors duration-200 hover:bg-gray-50 first:rounded-t-lg"
                 >
                   Edit
                 </button>
                 <hr />
                 <button
-                  onClick={() => handleDeletePost(post.id)}
-                  className="w-full px-4 py-2 text-left text-red-600 transition-colors duration-200 hover:bg-red-50"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeletePost(post.id);
+                    setShowDropdown(false);
+                  }}
+                  className="w-full px-4 py-2 text-left text-red-600 transition-colors duration-200 hover:bg-red-50 last:rounded-b-lg"
                 >
                   Delete
                 </button>
