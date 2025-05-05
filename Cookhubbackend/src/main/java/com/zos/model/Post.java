@@ -44,7 +44,7 @@ public class Post {
     private Set<UserDto> likedByUsers = new HashSet<>();
 
     public Post() {
-        // TODO Auto-generated constructor stub
+        // create post model TODO Auto-generated constructor stub
     }
 
 

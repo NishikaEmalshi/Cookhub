@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -56,11 +53,18 @@ const HomePage = () => {
 
 
   return (
-    <div style={{ paddingTop: "5px" }}>
-
-       <div className="mt-10 flex w-[100%] justify-center">
+    <div 
+      className="min-h-screen"
+      style={{ 
+        paddingTop: "5px",
+        backgroundImage: `url('https://t4.ftcdn.net/jpg/07/97/89/53/360_F_797895328_VRaJ04gpKCahlOPFhM45epaCIMhpy0qT.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      <div className="mt-10 flex w-[100%] justify-center">
         <div className="flex flex-col w-[44%] px-10 items-center">
-      
           <div className="w-full space-y-10 postsBox">
             {post.userPost?.length>0 && post?.userPost?.map((item) => (
               <PostCard
@@ -78,7 +82,6 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-
       </div> 
     </div>
   );

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.zos.model.Post;
-
+//create a post REPO
 public interface PostRepository extends JpaRepository<Post, Integer> {
 	
 	@Query("select p from Post p where p.user.id=?1")

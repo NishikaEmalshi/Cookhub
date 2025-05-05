@@ -6,7 +6,7 @@ import com.zos.exception.PostException;
 import com.zos.exception.UserException;
 import com.zos.model.Post;
 import com.zos.model.User;
-
+//post service 
 public interface PostService {
 
 	public Post createPost(Post post,Integer userId) throws UserException;
