@@ -27,7 +27,15 @@ const Profile = () => {
   const activeUser = isRequser ? user.reqUser : user.findByUsername;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div 
+      className="min-h-screen"
+      style={{
+        backgroundImage: `url('https://cdn.wallpapersafari.com/0/38/EF5P83.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* Profile Header */}
         <div className="mb-8 bg-white border border-gray-100 shadow-md rounded-xl">
