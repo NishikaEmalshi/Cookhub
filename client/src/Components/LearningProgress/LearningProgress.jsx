@@ -6,7 +6,17 @@ import {
   updateProgressUpdate,
   deleteProgressUpdate,
 } from "../../Redux/LearningProgress/Action";
-import { Button, Modal, Form, Input, Card, Row, Col, Select, message } from "antd";
+import {
+  Button,
+  Modal,
+  Form,
+  Input,
+  Card,
+  Row,
+  Col,
+  Select,
+  message,
+} from "antd";
 import "./LearningProgress.css";
 
 const { Option } = Select;
@@ -47,14 +57,28 @@ const LearningProgress = () => {
     message.info("Template selected. Please fill in the details yourself.");
   };
 
+  // Dynamically style select
+  const getSelectColorClass = () => {
+    switch (selectedTemplate) {
+      case "tutorial":
+        return "bg-red-500 text-white";
+      case "skill":
+        return "bg-green-500 text-white";
+      case "project":
+        return "bg-blue-500 text-white";
+      default:
+        return "bg-white text-black";
+    }
+  };
+
   return (
-    <div 
+    <div
       className="flex items-center justify-center min-h-screen px-4 py-8"
       style={{
         backgroundImage: `url('https://t3.ftcdn.net/jpg/03/39/06/02/360_F_339060225_w8ob8LjMJzPdEqD9UFxbE6ibcKx8dFrP.jpg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="w-full max-w-7xl">
@@ -118,17 +142,35 @@ const LearningProgress = () => {
           onCancel={handleModalClose}
           onOk={() => form.submit()}
           title={
-            <span className="text-xl font-semibold">
-              {editing ? "Edit Update" : "Add Progress Update"}
-            </span>
+            <div className="px-6 py-4 -mx-6 -mt-6 bg-blue-500 rounded-t-lg">
+              <span className="text-xl font-semibold text-white">
+                {editing ? "Edit Update" : "Add Progress Update"}
+              </span>
+            </div>
           }
           className="rounded-lg"
+          width={600}
+          bodyStyle={{ paddingTop: "20px" }}
+          footer={
+            <div className="flex justify-end pt-4 space-x-2 border-t">
+              <Button onClick={handleModalClose} className="px-6">
+                Cancel
+              </Button>
+              <Button
+                type="primary"
+                onClick={() => form.submit()}
+                className="px-6 bg-blue-500 hover:bg-blue-600"
+              >
+                {editing ? "Save Changes" : "Add Update"}
+              </Button>
+            </div>
+          }
         >
-          <Form form={form} onFinish={handleSubmit} layout="vertical">
+          <Form form={form} onFinish={handleSubmit} layout="vertical" className="mt-4">
             {!editing && (
               <Form.Item
                 label={
-                  <span className="font-medium text-gray-700">
+                  <span className="text-base font-medium text-gray-700">
                     Select Progress Type
                   </span>
                 }
@@ -136,7 +178,8 @@ const LearningProgress = () => {
                 <Select
                   placeholder="Select a template"
                   onChange={handleTemplateChange}
-                  className="w-full"
+                  className={`w-full rounded-md ${getSelectColorClass()}`}
+                  size="large"
                 >
                   <Option value="tutorial">Completed Tutorial</Option>
                   <Option value="skill">New Skill Learned</Option>
@@ -147,11 +190,12 @@ const LearningProgress = () => {
 
             <Form.Item
               name="title"
-              label={<span className="font-medium text-gray-700">Title</span>}
+              label={<span className="text-base font-medium text-gray-700">Title</span>}
               rules={[{ required: true, message: "Please enter a title" }]}
             >
               <Input
                 className="rounded-md"
+                size="large"
                 placeholder={
                   selectedTemplate === "tutorial"
                     ? "e.g., Completed Cooking Tutorial"
@@ -166,12 +210,13 @@ const LearningProgress = () => {
 
             <Form.Item
               name="content"
-              label={<span className="font-medium text-gray-700">Details</span>}
+              label={<span className="text-base font-medium text-gray-700">Details</span>}
               rules={[{ required: true, message: "Please enter details" }]}
             >
               <Input.TextArea
                 rows={4}
                 className="rounded-md"
+                size="large"
                 placeholder={
                   selectedTemplate === "tutorial"
                     ? "Describe what you learned in the tutorial..."
