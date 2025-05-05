@@ -225,6 +225,14 @@ const PostCard = ({
           </div>
         </div>
 
+        {/* Post Description - Moved to top */}
+        <div className="w-full px-6 py-4 border-b">
+          <div className="flex items-center space-x-2">
+            <span className="font-semibold">{post?.user?.username}</span>
+            <span className="text-gray-800">{post.caption}</span>
+          </div>
+        </div>
+
         {/* Media Section */}
         <div className="relative">
           {post.mediaUrls?.map((url, index) => (
@@ -293,23 +301,26 @@ const PostCard = ({
             )}
           </div>
         </div>
-        <div className="w-full px-5 py-2">
+
+        {/* Likes Count */}
+        <div className="w-full px-6 py-2">
           {numberOfLikes > 0 && (
-            <p className="text-sm">{numberOfLikes} likes</p>
+            <p className="text-sm font-semibold">{numberOfLikes} likes</p>
           )}
-          <p className="py-2">
-            <span className="font-semibold">{post?.user?.username}</span> {post.caption}
-          </p>
+          
+          {/* Comments Count */}
           {post?.comments?.length > 0 && (
             <p
               onClick={handleOpenCommentModal}
-              className="py-2 text-sm opacity-50 cursor-pointer -z-0"
+              className="py-2 text-sm text-gray-500 cursor-pointer hover:text-gray-700"
             >
               View all {post?.comments?.length} comments
             </p>
           )}
         </div>
-        <div className="w-full border border-t">
+
+        {/* Comment Input Section */}
+        <div className="w-full border-t">
           <div className="flex items-center w-full px-5">
             <BsEmojiSmile />
             <input
