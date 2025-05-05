@@ -35,6 +35,7 @@ public class PostController {
     @Autowired
     private UserService userService;
 
+    //post create post
     @PostMapping("/create")
     public ResponseEntity<Post> createPostHandler(@RequestBody Post post, @RequestHeader("Authorization") String token) throws UserException {
 

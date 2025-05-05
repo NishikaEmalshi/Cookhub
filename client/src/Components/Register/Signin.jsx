@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { signinAction } from "../../Redux/Auth/Action";
 import { getUserProfileAction } from "../../Redux/User/Action";
+import spiceupImage from '../../assets/logo.png';
+import leftImage from '../../assets/bg.jpg'; 
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required("Required"),
@@ -29,8 +31,6 @@ const Signin = () => {
   const toast = useToast();
 
   const token = localStorage.getItem("token");
-  console.log("token in signin page ", token);
-  console.log("reqUser -: ", user);
 
   useEffect(() => {
     if (token) dispatch(getUserProfileAction(token || signin));
@@ -49,27 +49,52 @@ const Signin = () => {
   }, [user.reqUser]);
 
   const handleSubmit = (values, actions) => {
-    console.log(values);
     dispatch(signinAction(values));
     actions.setSubmitting(false);
   };
 
   return (
-    <div>
-      <div className="border border-slate-300">
+    <Box
+      
+      display="flex"
+      height="80vh"
+      width="60vw"
+      overflow="hidden"
+    >
+      {/* Left Image Section */}
+      <Box
+        width="40%"
+        display={{ base: "none", md: "block" }}
+      >
+        <img
+          src={leftImage}
+          alt="Left Side"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </Box>
+
+      {/* Right Form Section */}
+      <Box
+        width={{ base: "100%", md: "50%" }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="#f9f9f9"
+        padding={4}
+      >
         <Box
+          width="100%"
+          maxW="400px"
           p={8}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          boxShadow="0 8px 24px rgba(0, 0, 0, 0.15)" // Transparent shadow
-          borderRadius="md"
+          boxShadow="lg"
           backgroundColor="white"
+          borderRadius="md"
         >
           <img
-            className="border border-red-800 mb-5"
-            src="https://www.pekarskiglasnik.com/images/slike/cook%20hub%20kuhinja/CookHub-logo.JPG"
-            alt="logo"
+            className="mb-5 mx-auto"
+            src={spiceupImage}
+            alt="SpiceUp Logo"
+            style={{ width: "120px" }}
           />
 
           <Formik
@@ -78,7 +103,7 @@ const Signin = () => {
             validationSchema={validationSchema}
           >
             {(formikProps) => (
-              <Form className="w-full">
+              <Form>
                 <Field name="email">
                   {({ field, form }) => (
                     <FormControl
@@ -86,7 +111,6 @@ const Signin = () => {
                       mb={4}
                     >
                       <Input
-                        className="w-full"
                         {...field}
                         id="email"
                         placeholder="Please Enter your Email"
@@ -123,11 +147,11 @@ const Signin = () => {
                 </p>
 
                 <Button
-                  className="w-full"
                   mt={4}
                   colorScheme="blue"
                   type="submit"
                   isLoading={formikProps.isSubmitting}
+                  width="100%"
                 >
                   Sign In
                 </Button>
@@ -144,21 +168,21 @@ const Signin = () => {
               </Form>
             )}
           </Formik>
-        </Box>
-      </div>
 
-      <div className="w-full border border-slate-300 mt-5">
-        <p className="text-center py-2">
-          If You Don't Have Already Account
-          <span
-            onClick={() => navigate("/signup")}
-            className="ml-2 text-blue-700 cursor-pointer"
-          >
-            Sign Up
-          </span>
-        </p>
-      </div>
-    </div>
+          <Box mt={6} textAlign="center">
+            <p>
+              If You Don't Have Already Account
+              <span
+                onClick={() => navigate("/signup")}
+                className="ml-2 text-blue-700 cursor-pointer"
+              >
+                Sign Up
+              </span>
+            </p>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

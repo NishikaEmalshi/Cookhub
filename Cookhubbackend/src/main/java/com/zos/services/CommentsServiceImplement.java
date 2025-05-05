@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import com.zos.model.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +33,12 @@ public class CommentsServiceImplement implements CommentService {
     @Autowired
     private PostRepository postRepo;
 
+   
 
-    @Autowired
-    private NotificationService notificationService;
-
-
+    // Create a new comment on a post
     @Override
-    public Comments createComment(Comments comment, Integer postId, Integer userId) throws PostException, UserException {
+    public Comments createComment(Comments comment, Integer postId, Integer userId)
+            throws PostException, UserException {
 
         User user = userService.findUserById(userId);
 
@@ -55,6 +53,7 @@ public class CommentsServiceImplement implements CommentService {
         userDto.setName(user.getName());
         userDto.setUserImage(user.getImage());
 
+        // Set user, timestamp, and post for the comment
         comment.setUserDto(userDto);
         comment.setCreatedAt(LocalDateTime.now());
         comment.setPost(post);
@@ -65,14 +64,9 @@ public class CommentsServiceImplement implements CommentService {
 
         postRepo.save(post);
 
-        if (!post.getUser().getId().equals(userId)) {
-            Notification notification = new Notification();
-            notification.setMessage(user.getUsername() + " commented on your post");
-            notification.setType("COMMENT");
-            notification.setPostId(postId);
-            notification.setCommentId(comment.getId());
-            notificationService.createNotification(notification, post.getUser().getId());
-        }
+        // If commenter is not the post owner, create a notification
+
+  
 
         return newComment;
     }
@@ -87,13 +81,13 @@ public class CommentsServiceImplement implements CommentService {
         throw new CommentException("comment not exist with id : " + commentId);
     }
 
+    // Like a comment
     @Override
     public Comments likeComment(Integer commentId, Integer userId) throws UserException, CommentException {
         // TODO Auto-generated method stub
 
         User user = userService.findUserById(userId);
         Comments comment = findCommentById(commentId);
-
 
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
@@ -108,7 +102,6 @@ public class CommentsServiceImplement implements CommentService {
 
     }
 
-
     @Override
     public Comments unlikeComment(Integer commentId, Integer userId) throws UserException, CommentException {
         User user = userService.findUserById(userId);
@@ -119,7 +112,6 @@ public class CommentsServiceImplement implements CommentService {
         return repo.save(comment);
 
     }
-
 
     @Override
     public String deleteCommentById(Integer commentId) throws CommentException {
@@ -132,7 +124,6 @@ public class CommentsServiceImplement implements CommentService {
         return "Comment Deleted Successfully";
     }
 
-
     @Override
     public String editComment(Comments comment, Integer commentId) throws CommentException {
         Comments isComment = findCommentById(commentId);
@@ -144,12 +135,10 @@ public class CommentsServiceImplement implements CommentService {
         return "Comment Updated Successfully";
     }
 
-
     @Override
     public List<Comments> findCommentByPostId(Integer postId) throws PostException {
         List<Comments> comments = repo.findCommentsByPostId(postId);
         return comments;
     }
-
 
 }

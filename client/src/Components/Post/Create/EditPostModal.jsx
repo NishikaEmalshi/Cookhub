@@ -163,7 +163,7 @@ const EditPostModal = ({ isOpen, onClose, post }) => {
               </div>
             </div>
 
-            {/* Location Input */}
+            {/*modify edit Location Input */}
             <input
               className="w-full p-4 text-lg border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50"
               type="text"
@@ -173,7 +173,7 @@ const EditPostModal = ({ isOpen, onClose, post }) => {
               onChange={handleInputChange}
             />
 
-            {/* Image Section */}
+            {/*modify Image Section */}
             <div 
               className="relative min-h-[300px] border-2 border-dashed border-gray-300 rounded-lg
                 hover:border-blue-500 transition-colors cursor-pointer bg-gray-50"

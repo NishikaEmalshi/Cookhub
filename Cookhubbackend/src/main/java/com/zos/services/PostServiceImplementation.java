@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import com.zos.model.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +28,7 @@ public class PostServiceImplementation implements PostService {
     @Autowired
     private UserRepository userRepo;
 
-    @Autowired
-    private NotificationService notificationService;
-
+  
     @Override
     public Post createPost(Post post, Integer userId) throws UserException {
         User user = userService.findUserById(userId);
@@ -93,13 +90,6 @@ public class PostServiceImplementation implements PostService {
 
         post.getLikedByUsers().add(userDto);
 
-        if (!post.getUser().getId().equals(userId)) {
-            Notification notification = new Notification();
-            notification.setMessage(user.getUsername() + " liked your post");
-            notification.setType("LIKE");
-            notification.setPostId(postId);
-            notificationService.createNotification(notification, post.getUser().getId());
-        }
 
         return postRepo.save(post);
     }

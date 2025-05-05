@@ -5,6 +5,8 @@ import SearchComponent from "../SearchComponent/SearchComponent";
 import { useSelector } from "react-redux";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import CreatePostModal from "../Post/Create/CreatePostModal";
+import spiceupImage from '../../assets/logo.png';
+
 
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState("Home");
@@ -36,10 +38,11 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-4 py-2">
         {/* Left logo */}
         <img
-          src="https://www.pekarskiglasnik.com/images/slike/cook%20hub%20kuhinja/CookHub-logo.JPG"
-          alt="CookHub Logo"
+          src={spiceupImage}
+          alt="SpiceUp Logo"
           className="w-32"
         />
+
 
         {/* Center tabs and search */}
         <div className="relative flex items-center justify-center flex-1 space-x-4">

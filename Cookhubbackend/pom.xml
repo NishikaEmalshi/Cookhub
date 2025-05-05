@@ -9,10 +9,10 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.zos</groupId>
-	<artifactId>cookhub</artifactId>
+	<artifactId>spiceup</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cookhub</name>
-	<description>cookhub api</description>
+	<name>spiceup</name>
+	<description>spiceup api</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

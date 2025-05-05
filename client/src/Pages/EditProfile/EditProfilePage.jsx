@@ -3,14 +3,24 @@ import EditProfileForm from '../../Components/EditProfileComponent/EditProfileFo
 
 const EditProfilePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50">
+
+    //create a edit profile page 
+    <div 
+      className="min-h-screen bg-gradient-to-br from-blue-50/90 via-white/90 to-pink-50/90"
+      style={{
+        backgroundImage: `url('https://img.freepik.com/free-photo/black-smooth-wall-textured-background_53876-124461.jpg?semt=ais_hybrid&w=740')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <div className="max-w-4xl px-4 py-12 mx-auto">
         {/* Header Section */}
         <div className="mb-10 text-center">
-          <h1 className="mb-2 text-3xl font-bold text-gray-800">
+          <h1 className="mb-2 text-3xl font-bold text-white">
             Edit Your Profile
           </h1>
-          <p className="text-gray-600">
+          <p className="text-white">
             Customize your profile to make it uniquely yours
           </p>
         </div>
@@ -41,7 +51,7 @@ const EditProfilePage = () => {
             <EditProfileForm />
           </div>
 
-          {/* Footer */}
+          {/* add Footer */} 
           <div className="px-6 py-4 border-t border-gray-100 bg-gray-50">
             <p className="text-sm text-center text-gray-500">
               Your information is securely saved

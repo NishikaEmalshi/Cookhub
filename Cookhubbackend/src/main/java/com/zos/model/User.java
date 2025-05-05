@@ -49,9 +49,6 @@ public class User {
     @Embedded
     private Set<UserDto> following = new HashSet<UserDto>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Story> stories = new ArrayList<>();
-
     @ManyToMany
     private List<Post> savedPost = new ArrayList<>();
 
@@ -62,7 +59,7 @@ public class User {
 
     public User(Integer id, String username, String email, String name, String mobile, String website, String bio,
                 String gender, String image, String password, Set<UserDto> follower, Set<UserDto> following,
-                List<Story> stories, List<Post> savedPost) {
+                 List<Post> savedPost) {
         super();
         this.id = id;
         this.username = username;
@@ -76,7 +73,6 @@ public class User {
         this.password = password;
         this.follower = follower;
         this.following = following;
-        this.stories = stories;
         this.savedPost = savedPost;
     }
 
@@ -187,15 +183,7 @@ public class User {
     }
 
 
-    public List<Story> getStories() {
-        return stories;
-    }
-
-
-    public void setStories(List<Story> stories) {
-        this.stories = stories;
-    }
-
+   
 
     public List<Post> getSavedPost() {
         return savedPost;
@@ -210,7 +198,7 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
-                + ", follower=" + follower + ", following=" + following + ", stories=" + stories + "]";
+                + ", follower=" + follower + ", following=" + following + "]";
     }
 
 
