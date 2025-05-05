@@ -171,21 +171,21 @@ const PostCard = ({
     <div className="mb-8">
       <div className="flex flex-col overflow-hidden bg-white shadow-lg rounded-xl">
         {/* Header Section */}
-        <div className="flex items-center justify-between px-6 py-4 border-b">
+        <div className="flex items-center justify-between px-6 py-4 bg-blue-500 border-b">
           <div className="flex items-center space-x-3">
             <img
-              className="object-cover w-10 h-10 rounded-full ring-2 ring-gray-100"
+              className="object-cover w-10 h-10 rounded-full ring-2 ring-white"
               src={post.user.userImage || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
               alt=""
             />
             <div>
-              <p className="font-semibold text-gray-800 cursor-pointer hover:underline"
+              <p className="font-semibold text-white cursor-pointer hover:underline"
                  onClick={() => handleNavigate(username)}>
                 {post?.user?.username}
               </p>
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-white/80">
                 <span>{location}</span>
-                {location && <BsDot />}
+                {location && <BsDot className="text-white/80" />}
                 <span>{timeDifference(post?.createdAt)}</span>
               </div>
             </div>
@@ -195,7 +195,7 @@ const PostCard = ({
           <div className="relative dropdown">
             <button
               onClick={handleClick}
-              className="p-2 text-gray-700 transition-colors duration-200 rounded-full hover:bg-gray-100"
+              className="p-2 text-white transition-colors duration-200 rounded-full hover:bg-blue-600"
             >
               <BsThreeDots size={20} />
             </button>
