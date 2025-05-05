@@ -5,7 +5,15 @@ const EditProfilePage = () => {
   return (
 
     //create a edit profile page 
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-pink-50">
+    <div 
+      className="min-h-screen bg-gradient-to-br from-blue-50/90 via-white/90 to-pink-50/90"
+      style={{
+        backgroundImage: `url('https://img.freepik.com/free-photo/black-smooth-wall-textured-background_53876-124461.jpg?semt=ais_hybrid&w=740')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <div className="max-w-4xl px-4 py-12 mx-auto">
         {/* Header Section */}
         <div className="mb-10 text-center">
