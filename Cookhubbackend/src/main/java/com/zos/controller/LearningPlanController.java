@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//learing plan controller for managing learning plans, topics, and resources
 @RestController
 @RequestMapping("/api/learning_plan")
 public class LearningPlanController {
