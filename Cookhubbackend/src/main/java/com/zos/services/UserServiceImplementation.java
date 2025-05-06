@@ -142,15 +142,6 @@ public class UserServiceImplementation implements UserService {
 
         repo.save(reqUser);
 
-//		User user= userService.findUserById(userId);
-//		UserDto userDto=new UserDto();
-//		
-//		userDto.setEmail(user.getEmail());
-//		userDto.setUsername(user.getUsername());
-//		userDto.setId(user.getId());
-//		
-//		Post post=findePostById(postId);
-//		post.getLikedByUsers().remove(userDto);
 
         return "you have unfollow " + unfollowUser.getUsername();
 
