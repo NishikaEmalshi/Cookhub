@@ -1,5 +1,5 @@
+/* Background and base styles */
 body {
-  background-color: #fafafa;
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
   color: #262626;
 }
@@ -9,9 +9,10 @@ body {
   font-size: 2.25rem;
   font-weight: 700;
   color: #262626;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ant-btn-primary {
+.gradient-btn {
   background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
   border: none;
   color: white;
@@ -20,32 +21,32 @@ body {
   transition: all 0.3s ease;
 }
 
-.ant-btn-primary:hover {
+.gradient-btn:hover {
   opacity: 0.9;
+  transform: translateY(-1px);
 }
 
+/* Cards and containers */
 .ant-card {
   border: none;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   border-radius: 1rem;
   transition: transform 0.2s ease;
-  background-color: #fff;
+  backdrop-filter: blur(4px);
 }
 
 .ant-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
 }
 
-.ant-collapse > .ant-collapse-item > .ant-collapse-header {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-}
-
+/* Tags */
 .ant-tag {
   font-size: 0.75rem;
   border-radius: 1rem;
   padding: 0.25rem 0.75rem;
+  backdrop-filter: blur(2px);
+  opacity: 0.9;
 }
 
 .ant-tag-blue {
@@ -68,102 +69,47 @@ body {
 .ant-textarea,
 .ant-picker {
   border-radius: 0.75rem;
-  background-color: #fafafa;
-  border: 1px solid #dbdbdb;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(219, 219, 219, 0.7);
+  backdrop-filter: blur(2px);
 }
 
-.ant-modal {
-  border-radius: 1rem;
-  padding: 1.5rem;
+.ant-input:focus,
+.ant-textarea:focus,
+.ant-picker-focused {
+  border-color: #ef476f;
+  box-shadow: 0 0 0 2px rgba(239, 71, 111, 0.2);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
-/* Checkboxes */
-.ant-checkbox-inner {
-  border-radius: 4px;
+/* Modals */
+.ant-modal-content {
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
 }
 
 /* Resource links */
 .resource-link {
   color: #3897f0;
   font-weight: 500;
+  transition: color 0.2s;
 }
 
-/* Subtle hover animation */
-.ant-btn-icon-only {
-  border-radius: 50%;
-  transition: background 0.3s;
+.resource-link:hover {
+  color: #1a73e8;
 }
 
-.ant-btn-icon-only:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+/* Progress bars - keep solid */
+.ant-progress-inner {
+  background-color: white !important;
 }
 
-
-.header-bar {
-  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-  padding: 1rem;
-  color: white;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  border-radius: 0 0 1rem 1rem;
-  margin-bottom: 2rem;
-}
-
-
-/* ===================== */
-/* 🌸 FORM CONTAINER 🌸  */
-/* ===================== */
-
-.ant-modal-content {
-  border-radius: 1.5rem;
-  padding: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  background: white;
-}
-
-
-
-.ant-form-item-label > label {
-  font-size: 14px;
-  color: #555;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-.ant-input,
-.ant-textarea,
-.ant-picker,
-.ant-select-selector {
-  background-color: #f8f9fa;
-  border: 1px solid #dbdbdb;
-  padding: 10px 14px;
-  border-radius: 1rem;
-  font-size: 14px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ant-input:focus,
-.ant-textarea:focus,
-.ant-picker-focused,
-.ant-select-focused {
-  border-color: #ef476f;
-  box-shadow: 0 0 0 2px rgba(239, 71, 111, 0.2);
-}
-
-
-
-.ant-picker {
-  width: 100%;
-  font-size: 14px;
-  padding: 10px 14px;
-}
-
-
-
-.ant-checkbox-wrapper {
-  font-size: 14px;
-  color: #444;
+/* Checkboxes */
+.ant-checkbox-inner {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
@@ -171,26 +117,22 @@ body {
   border-color: #ef476f;
 }
 
-
-
-.ant-input-textarea {
-  padding: 10px 14px;
-  font-size: 14px;
+/* Transitions for smooth hover effects */
+.ant-btn-icon-only {
+  border-radius: 50%;
+  transition: all 0.3s;
 }
 
-
-
-.ant-modal-footer .ant-btn-primary {
-  background: linear-gradient(to right, #f09433, #e6683c, #dc2743);
-  border: none;
-  border-radius: 2rem;
-  font-weight: bold;
-  padding: 0.5rem 1.25rem;
-  font-size: 14px;
+.ant-btn-icon-only:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
 }
 
-.ant-modal-footer .ant-btn-default {
-  border-radius: 2rem;
-  padding: 0.5rem 1.25rem;
-  font-size: 14px;
+/* Ensure text remains readable on transparent backgrounds */
+.ant-form-item-label > label,
+.ant-modal-title,
+.ant-checkbox-wrapper,
+.ant-tag,
+.ant-divider-inner-text {
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
 }
