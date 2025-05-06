@@ -1,0 +1,76 @@
+/* Container */
+.learning-progress-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Cards */
+.progress-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+}
+
+.progress-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.progress-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+/* Buttons inside cards */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Ant Design Overrides */
+.ant-btn-primary {
+  background: linear-gradient(to right, #f09433, #e6683c, #dc2743);
+  border: none;
+  border-radius: 24px;
+  font-weight: bold;
+  padding: 0 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.ant-btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Modal */
+.ant-modal-content {
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Form Inputs */
+.ant-input,
+.ant-textarea,
+.ant-select-selector {
+  border-radius: 1rem !important;
+  background: #f9f9f9;
+  border: 1px solid #dcdcdc;
+}

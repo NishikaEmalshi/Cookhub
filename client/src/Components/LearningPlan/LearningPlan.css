@@ -1,0 +1,138 @@
+/* Background and base styles */
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  color: #262626;
+}
+
+/* Headings and layout */
+.learning_plan-header {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #262626;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-btn {
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border: none;
+  color: white;
+  font-weight: 500;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.gradient-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Cards and containers */
+.ant-card {
+  border: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  transition: transform 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.ant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Tags */
+.ant-tag {
+  font-size: 0.75rem;
+  border-radius: 1rem;
+  padding: 0.25rem 0.75rem;
+  backdrop-filter: blur(2px);
+  opacity: 0.9;
+}
+
+.ant-tag-blue {
+  background-color: #4cb5f9;
+  color: white;
+}
+
+.ant-tag-orange {
+  background-color: #f77f00;
+  color: white;
+}
+
+.ant-tag-red {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Input/Forms */
+.ant-input,
+.ant-textarea,
+.ant-picker {
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(219, 219, 219, 0.7);
+  backdrop-filter: blur(2px);
+}
+
+.ant-input:focus,
+.ant-textarea:focus,
+.ant-picker-focused {
+  border-color: #ef476f;
+  box-shadow: 0 0 0 2px rgba(239, 71, 111, 0.2);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Modals */
+.ant-modal-content {
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+}
+
+/* Resource links */
+.resource-link {
+  color: #3897f0;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.resource-link:hover {
+  color: #1a73e8;
+}
+
+/* Progress bars - keep solid */
+.ant-progress-inner {
+  background-color: white !important;
+}
+
+/* Checkboxes */
+.ant-checkbox-inner {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #ef476f;
+  border-color: #ef476f;
+}
+
+/* Transitions for smooth hover effects */
+.ant-btn-icon-only {
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.ant-btn-icon-only:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
+}
+
+/* Ensure text remains readable on transparent backgrounds */
+.ant-form-item-label > label,
+.ant-modal-title,
+.ant-checkbox-wrapper,
+.ant-tag,
+.ant-divider-inner-text {
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+}
