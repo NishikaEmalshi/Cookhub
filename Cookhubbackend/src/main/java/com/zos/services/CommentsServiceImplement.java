@@ -34,8 +34,8 @@ public class CommentsServiceImplement implements CommentService {
     private PostRepository postRepo;
 
 
-    @Autowired
-    private NotificationService notificationService;
+   // @Autowired
+   // private NotificationService notificationService;
 
     // Create a new comment on a post
     @Override
