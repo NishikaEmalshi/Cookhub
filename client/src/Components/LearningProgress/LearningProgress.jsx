@@ -166,6 +166,7 @@ const LearningProgress = () => {
               </Button>
             </div>
           }
+          //save changes button
         >
           <Form form={form} onFinish={handleSubmit} layout="vertical" className="mt-4">
             {!editing && (
@@ -176,12 +177,14 @@ const LearningProgress = () => {
                   </span>
                 }
               >
+                
                 <Select
                   placeholder="Select a template"
                   onChange={handleTemplateChange}
                   className={`w-full rounded-md ${getSelectColorClass()}`}
                   size="large"
                 >
+                  
                   <Option value="tutorial">Completed Tutorial</Option>
                   <Option value="skill">New Skill Learned</Option>
                   <Option value="project">Enhancing the knowledge</Option>
