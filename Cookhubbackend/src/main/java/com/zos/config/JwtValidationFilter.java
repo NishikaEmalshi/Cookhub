@@ -53,10 +53,6 @@ public class JwtValidationFilter extends OncePerRequestFilter {
 				Authentication auth = new UsernamePasswordAuthenticationToken(username, null, auths);
 
 				
-//				List<GrantedAuthority> authorities=(List<GrantedAuthority>)claims.get("authorities");
-//				Authentication auth = new UsernamePasswordAuthenticationToken(username, null, authorities); 
-				
-				
 				SecurityContextHolder.getContext().setAuthentication(auth);
 				
 			} catch (Exception e) {
