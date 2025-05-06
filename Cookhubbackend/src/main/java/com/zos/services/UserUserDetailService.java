@@ -13,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-//import com.zos.model.User;
-//import com.zos.model.User as MyNewClassName;
 import com.zos.repository.UserRepository ;
 
 @Service
