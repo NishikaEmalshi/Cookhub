@@ -1,3 +1,4 @@
+// Main component for displaying and managing learning progress updates
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
