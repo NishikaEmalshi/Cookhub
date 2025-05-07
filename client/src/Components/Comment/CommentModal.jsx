@@ -165,7 +165,7 @@ const CommentModal = ({
                   {post.singlePost?.likedByUsers?.length > 0 && (
                     <p className="text-sm font-semibold py-2">
                       {post.singlePost?.likedByUsers?.length} likes{" "}
-                    </p>
+                    </p> // para
                   )}
                   <p className="opacity-70 pb-5">
                     {timeDifference(post?.singlePost?.createdAt)}
